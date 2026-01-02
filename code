@@ -1,0 +1,83 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# ============================
+# 1. Read Image
+# ============================
+img = cv2.imread(r"C:\Users\hazir\Downloads\writing.jpg")
+
+# Convert BGR to RGB for display
+img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+# ============================
+# 2. Convert to Grayscale
+# ============================
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# ============================
+# 3. Static Threshold
+# ============================
+_, static_thresh = cv2.threshold(
+    gray, 200, 255, cv2.THRESH_BINARY
+)
+
+# ============================
+# 4. Otsu Threshold
+# ============================
+_, otsu_thresh = cv2.threshold(
+    gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
+)
+
+# ============================
+# 5. Morphological Operations
+# ============================
+kernel = np.ones((3, 3), np.uint8)
+
+# Opening: remove noise
+opening = cv2.morphologyEx(
+    otsu_thresh, cv2.MORPH_OPEN, kernel
+)
+
+# Closing: connect handwriting strokes
+closing = cv2.morphologyEx(
+    opening, cv2.MORPH_CLOSE, kernel
+)
+
+# ============================
+# 6. Display Results
+# ============================
+plt.figure(figsize=(14, 10))
+
+plt.subplot(2, 3, 1)
+plt.imshow(img_rgb)
+plt.title("Original Image")
+plt.axis("off")
+
+plt.subplot(2, 3, 2)
+plt.imshow(gray, cmap="gray")
+plt.title("Grayscale Image")
+plt.axis("off")
+
+plt.subplot(2, 3, 3)
+plt.imshow(static_thresh, cmap="gray")
+plt.title("Static Threshold")
+plt.axis("off")
+
+plt.subplot(2, 3, 4)
+plt.imshow(otsu_thresh, cmap="gray")
+plt.title("Otsu Threshold")
+plt.axis("off")
+
+plt.subplot(2, 3, 5)
+plt.imshow(opening, cmap="gray")
+plt.title("After Opening")
+plt.axis("off")
+
+plt.subplot(2, 3, 6)
+plt.imshow(closing, cmap="gray")
+plt.title("After Closing (Final)")
+plt.axis("off")
+
+plt.tight_layout()
+plt.show()
