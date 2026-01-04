@@ -1,0 +1,20 @@
+PROBLEM STATEMENT
+In real-life, handwritten documents like exam scripts, forms, or notes often need to be digitized.
+
+These images usually have uneven lighting, background noise, or unclear handwriting, making automated analysis difficult.
+This project focuses on extracting handwritten text from such real-world images for reliable processing and recognition.
+
+  PROJECT CONTENT
+  This project focuses on extracting handwritten text from real-world images.
+
+The objective is to separate handwriting from the background and enhance its quality for further analysis such as OCR and document digitization.
+
+  CONCLUSION
+
+The project successfully segments handwritten text from real-world images using image processing techniques.
+
+ Grayscale conversion simplifies the image, thresholding separates text from the background, and morphological operations clean noise and enhance stroke continuity.
+
+ Otsu thresholding adapts to lighting, making this method suitable for diverse handwriting styles and real-world conditions.
+
+ This approach is valuable for OCR, digitizing documents, and any application requiring reliable handwriting recognition.
